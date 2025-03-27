@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { Loading } from "../../icons/Loading";
 
 // Интерфейс пропсов для ButtonStyled

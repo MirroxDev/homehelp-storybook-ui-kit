@@ -5,7 +5,7 @@ const meta: Meta<typeof Input> = {
   component: Input,
   tags: ["autodocs"],
   argTypes: {
-    hasError: {
+    data_haserror: {
       control: "boolean",
     },
     placeholder: {
@@ -24,8 +24,7 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   args: {
-    label: "Name",
-    id: "1",
-    placeholder: "Your name"
+    label: "Імʼя",
+    id: "1"
   },
 };

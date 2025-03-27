@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import { ChangeEvent, InputHTMLAttributes } from "react";
 
+// Типы пропсов для StyledInput
 interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  hasError?: boolean;
+  data_haserror?: boolean; // Переименовал в data_haserror по конвенции
 }
 
+// Типы пропсов для StyledLabel
+interface StyledLabelProps {
+  data_haserror?: boolean;
+}
+
+// Типы пропсов для всего компонента Input
 interface InputProps extends StyledInputProps {
   label: string;
   id: string;
@@ -12,29 +19,29 @@ interface InputProps extends StyledInputProps {
 
 // Стили для input
 const StyledInput = styled.input<StyledInputProps>`
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid ${({ hasError }) => (hasError ? "#ff3333" : "#ccc")};
+  height: 70px;
+  padding: 0px 15px;
+  border-radius: 5px;
+  border: 1px solid
+    ${({ data_haserror }) => (data_haserror ? "#ff3333" : "#D4DCEF")};
   background-color: #fff;
+  color: #333;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
 
-  &::placeholder {
-    color: #999;
-  }
-
-  &:focus {
+  &:focus,
+  &:not(:placeholder-shown) {
+    padding-top: 20px;
     outline: none;
-    border-color: ${({ hasError }) => (hasError ? "#ff3333" : "#007bff")};
+    border-color: ${({ data_haserror }) =>
+      data_haserror ? "#ff3333" : "#007bff"};
     box-shadow: 0 0 4px
-      ${({ hasError }) =>
-        hasError ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 123, 255, 0.2)"};
-  }
-
-  &:focus + label,
-  input:not(:placeholder-shown) + label {
-    transform: translateY(-100%) scale(0.75);
+      ${({ data_haserror }) =>
+        data_haserror ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 123, 255, 0.2)"};
+    ~ label {
+      top: 20px;
+    }
   }
 
   &:disabled {
@@ -44,25 +51,29 @@ const StyledInput = styled.input<StyledInputProps>`
 `;
 
 // Стили для label
-const StyledLabel = styled.label`
+const StyledLabel = styled.label<StyledLabelProps>`
+  color: ${({ data_haserror }) => (data_haserror ? "#ff3333" : "#5490f9")};
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   display: block;
-  margin-bottom: 4px;
-  font-size: 14px;
-  color: #333;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 `;
 
 // Стили для обертки
 const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 16px;
+  position: relative;
 `;
 
 export const Input = ({
-  hasError = false,
+  data_haserror,
   label,
-  placeholder,
   id,
   onChange,
   ...props
@@ -73,14 +84,16 @@ export const Input = ({
 
   return (
     <InputWrapper>
-      <StyledLabel htmlFor={id}>{label}</StyledLabel>
       <StyledInput
-        hasError={hasError}
-        placeholder={placeholder}
         onChange={handleChange}
         id={id}
+        data_haserror={data_haserror}
+        placeholder=""
         {...props}
       />
+      <StyledLabel htmlFor={id} data_haserror={data_haserror}>
+        {label}
+      </StyledLabel>
     </InputWrapper>
   );
 };

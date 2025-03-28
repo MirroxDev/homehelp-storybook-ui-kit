@@ -1,5 +1,10 @@
 export const base = {
   white: "#FFFFFF",
+  black: "#000000",
+  primary: "#1268fb",
+  border: "#d4dcef",
+  red: "#ff3333",
+  gray: " #D4DCEF",
   blue: {
     1: {
       light: "#111A2C",

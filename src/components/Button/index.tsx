@@ -1,15 +1,13 @@
 import { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 import { Loading } from "../../icons/Loading";
+import variables from "../../variables";
 
-// Интерфейс пропсов для ButtonStyled
 interface StyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   loading?: boolean;
-  variant?: "primary" | "secondary";
 }
 
-// Интерфейс пропсов для компонента Button
 interface ButtonProps extends StyledButtonProps {
   text: string;
 }
@@ -24,32 +22,28 @@ const ButtonStyled = styled.button<StyledButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  ${({ variant }) =>
-    variant === "secondary"
-      ? css`
-          background-color: #6c757d;
-          color: #fff;
-        `
-      : css`
-          background-color: #1268fb;
-          color: #fff;
-        `}
-
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      background-color: #ccc;
-      cursor: not-allowed;
-      opacity: 0.7;
-    `}
+  background-color: ${variables.colors.base.primary};
+  color: ${variables.colors.base.white};
 
   ${({ loading }) =>
     loading &&
     css`
+      background-color: ${variables.colors.base.gray};
       cursor: not-allowed;
       opacity: 0.7;
       pointer-events: none;
+    `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background-color: ${variables.colors.base.primary};
+      cursor: not-allowed;
+      opacity: 0.7;
+      pointer-events: none;
+      svg {
+        fill: ${variables.colors.base.white};
+      }
     `}
 
   &:hover {
@@ -57,7 +51,7 @@ const ButtonStyled = styled.button<StyledButtonProps>`
       !disabled &&
       !loading &&
       css`
-        opacity: 70%;
+        opacity: 0.7;
       `}
   }
 `;
@@ -66,15 +60,13 @@ export const Button = ({
   text = "Text",
   disabled = false,
   loading = false,
-  variant = "primary",
   ...props
 }: ButtonProps) => {
   return (
     <ButtonStyled
-      disabled={disabled || loading} // Отключаем кнопку при loading
-      type="button" // По умолчанию тип button, можно переопределить через props
-      variant={variant}
+      disabled={disabled || loading}
       loading={loading}
+      type="button"
       {...props}>
       {loading ? <Loading /> : text}
     </ButtonStyled>

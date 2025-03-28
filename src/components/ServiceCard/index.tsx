@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CardArrow } from "../../icons/CardArrow";
 import { DemoIcon } from "../../icons/demo/DemoIcon";
 import { JSX } from "react";
-
+import variables from "../../variables";
 interface ServiceCardProps {
   icon: JSX.Element;
   number: string;
@@ -14,8 +14,11 @@ const ServiceCardTop = styled.div`
   justify-content: space-between;
   align-items: start;
   padding-bottom: 32px;
+  @media (max-width: 762px) {
+    padding-bottom: 1rem;
+  }
   svg {
-    fill: #1268fb;
+    fill: ${variables.colors.base.primary};
     transition: fill 0.2s ease-in-out;
   }
 `;
@@ -24,14 +27,15 @@ const ServiceCardBottom = styled.div`
   justify-content: space-between;
   align-items: end;
   svg {
+    transition: 0.2s ease-in-out;
     path {
-      stroke: #1268fb;
+      stroke: ${variables.colors.base.primary};
       transition: stroke 0.2s ease-in-out;
     }
   }
 `;
 const ServiceCardNumber = styled.div`
-  color: #1268fb;
+  color: ${variables.colors.base.primary};
   font-weight: 400;
   font-size: 16px;
   transition: 0.2s ease-in-out;
@@ -39,34 +43,43 @@ const ServiceCardNumber = styled.div`
 
 const ServiceCardName = styled.div`
   font-size: 20px;
-  color: #1268fb;
+  color: ${variables.colors.base.primary};
   font-weight: 400;
   width: 100%;
   transition: 0.2s ease-in-out;
+
+  @media (max-width: 762px) {
+    font-size: 16px;
+  }
 `;
 
 const ServiceCardWarapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  border: 1px solid #d4dcef;
+  background-color: ${variables.colors.base.white};
+  border: 1px solid ${variables.colors.base.gray};
   border-radius: 5px;
   padding: 20px 20px;
   transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
   cursor: pointer;
 
+  @media (max-width: 762px) {
+    padding: 10px 10px;
+  }
+
   &:hover {
-    border: 1px solid #1268fb;
-    background-color: #1268fb;
+    border: 1px solid ${variables.colors.base.primary};
+    background-color: ${variables.colors.base.primary};
 
     ${ServiceCardName}, ${ServiceCardNumber}, svg {
-      color: #fff;
-      fill: #fff;
+      color: ${variables.colors.base.white};
+      fill: ${variables.colors.base.white};
     }
     ${ServiceCardBottom} {
       svg {
+        transform: rotate(45deg);
         path {
-          stroke: #fff;
+          stroke: ${variables.colors.base.white};
         }
       }
     }

@@ -1,17 +1,15 @@
 import styled from "styled-components";
 import { ChangeEvent, InputHTMLAttributes } from "react";
+import variables from "../../variables";
 
-// Типы пропсов для StyledInput
 interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {
   data_haserror?: boolean; // Переименовал в data_haserror по конвенции
 }
 
-// Типы пропсов для StyledLabel
 interface StyledLabelProps {
   data_haserror?: boolean;
 }
 
-// Типы пропсов для всего компонента Input
 interface InputProps extends StyledInputProps {
   label: string;
   id: string;
@@ -23,7 +21,7 @@ const StyledInput = styled.input<StyledInputProps>`
   padding: 0px 15px;
   border-radius: 5px;
   border: 1px solid
-    ${({ data_haserror }) => (data_haserror ? "#ff3333" : "#D4DCEF")};
+    ${({ data_haserror }) => (data_haserror ? `${variables.colors.base.red}` : `${variables.colors.base.gray}`)};
   background-color: #fff;
   color: #333;
   font-size: 16px;
@@ -35,7 +33,7 @@ const StyledInput = styled.input<StyledInputProps>`
     padding-top: 20px;
     outline: none;
     border-color: ${({ data_haserror }) =>
-      data_haserror ? "#ff3333" : "#007bff"};
+      data_haserror ? `${variables.colors.base.red}` : `${variables.colors.base.primary}`};
     box-shadow: 0 0 4px
       ${({ data_haserror }) =>
         data_haserror ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 123, 255, 0.2)"};
@@ -52,7 +50,7 @@ const StyledInput = styled.input<StyledInputProps>`
 
 // Стили для label
 const StyledLabel = styled.label<StyledLabelProps>`
-  color: ${({ data_haserror }) => (data_haserror ? "#ff3333" : "#5490f9")};
+  color: ${({ data_haserror }) => (data_haserror ? `${variables.colors.base.red}` : `${variables.colors.base.primary}`)};
   font-size: 20px;
   font-weight: 400;
   position: absolute;
